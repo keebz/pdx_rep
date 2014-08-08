@@ -2,6 +2,7 @@ require './lib/rep'
 require './lib/party'
 require 'pry'
 
+@all_parties = Party.new
 def main_menu
   puts "\n\nBook of PDX representatives. \n\n"
   puts "Press 'r' to add a representative."
@@ -26,7 +27,7 @@ def main_menu
     add_party
     main_menu
   elsif user_selection == 'lp'
-    add_party
+    list_party
     main_menu
   else
     puts "not a valid entry, try again!"
@@ -76,5 +77,28 @@ def list_reps
     list_reps
   end
 end
+
+def add_party
+  puts "Please add a new political party:"
+  new_party = gets.chomp.to_s.capitalize
+
+  @all_parties.add_party(new_party)
+  puts new_party + " has been added! \n\n"
+end
+
+def list_party
+  # binding.pry
+  if @all_parties.parties.length > 0
+    puts "Here all all the current political parties in PDX: \n\n"
+    @all_parties.parties.each_with_index do |party, index|
+      puts (index + 1).to_s + ". " + party
+    end
+  else
+    puts "There are no parties listed. Lets add some now! \n\n"
+    add_party
+    list_party
+  end
+end
+
 
 main_menu
