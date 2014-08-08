@@ -159,9 +159,6 @@ def list_members(party)
   Rep.list.each_with_index do |rep, index|
     if rep.party == party
       puts (index + 1).to_s + ". " + rep.type + ". " + rep.name
-    else
-      puts "There are no active politicians in that party."
-      main_menu
     end
   end
 end
