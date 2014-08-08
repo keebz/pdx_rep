@@ -4,6 +4,9 @@ require 'party'
 require 'pry'
 
 describe Rep do
+  before(:each) do
+    Rep.clear
+  end
 
   it "initalizes with a reps name" do
     test_rep = Rep.new("bob")
@@ -31,6 +34,11 @@ describe Rep do
     test_rep = Rep.new("bob")
     test_rep.set_party("democrate")
     test_rep.set_rep_type("senator")
-    expect(Rep.all).to eq ["bob"]
+    expect(Rep.list).to eq [test_rep]
+  end
+
+  it "clears the list of reps" do
+    test_rep = Rep.new("bob")
+    expect(Rep.clear).to eq []
   end
 end
