@@ -76,6 +76,30 @@ def list_reps
     add_rep
     list_reps
   end
+  puts "Press 'd' to delete a representative or 'm' to return to the main menu:"
+  selection = gets.chomp.downcase
+  if selection == 'm'
+    main_menu
+  elsif selection == 'd'
+    puts "Press the number of the politician you would like to delete..."
+    sleep 1
+    puts "... no you can't delete them all at once. Select number now:"
+    at_location = gets.chomp.to_i
+    delete_rep(at_location)
+  else
+    puts "invaild input"
+    list_reps
+  end
+end
+
+def delete_rep(at_location)
+  Rep.list.each_with_index do |rep, index|
+    if (at_location - 1) == index
+      Rep.list.delete_at(index)
+      puts rep.type + " " + rep.name + " deleted!"
+      list_reps
+    end
+  end
 end
 
 def add_party
@@ -117,15 +141,17 @@ def list_party
 end
 
 def delete_party(at_location)
-  @all_parties.parties.each_with_index do |party, index|
-    if (at_location - 1) == index
-      @all_parties.parties.delete_at(index)
-      puts party + " deleted!"
-      list_party
-    else
-      puts "selection invaild"
-      list_party
+  if (at_location > 0) && (at_location <= @all_parties.parties.length)
+    @all_parties.parties.each_with_index do |party, index|
+      if (at_location - 1) == index
+        @all_parties.parties.delete_at(index)
+        puts party + " deleted!"
+        list_party
+      end
     end
+  else
+    puts "Invalid selection! try again"
+    list_party
   end
 end
 
@@ -139,6 +165,5 @@ def list_members(party)
     end
   end
 end
-
 
 main_menu
