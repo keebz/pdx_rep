@@ -1,24 +1,33 @@
 require './lib/rep'
 require './lib/party'
+require 'pry'
 
 def main_menu
   puts "\n\nBook of PDX representatives. \n\n"
-  puts "Press 'a' to add a representative."
+  puts "Press 'r' to add a representative."
   puts "Press 'l' to list all of your representatives."
-  puts "Press 'p' to list all of the current parties."
+  puts "Press 'p' to add a new political party."
+  puts "Press 'lp' to list all the political parties"
   puts "Press 'x' to exit."
 
-  user_selection = gets.chomp
+  user_selection = gets.chomp.to_s
+  user_selection.downcase!
 
   if user_selection == 'x'
     puts "Vote now and vote often!"
     exit
-  elsif user_selection == 'a'
+  elsif user_selection == 'r'
     add_rep
+    main_menu
   elsif user_selection == 'l'
     list_reps
+    main_menu
   elsif user_selection == 'p'
-    list_parties
+    add_party
+    main_menu
+  elsif user_selection == 'lp'
+    add_party
+    main_menu
   else
     puts "not a valid entry, try again!"
     main_menu
@@ -52,7 +61,20 @@ def add_rep
       end
   end
   puts new_rep.type + ", " + new_rep.party + " " + new_rep.name + " has been updated!"
-  main_menu
+end
+
+def list_reps
+  puts "Here are all of your representatives: \n\n"
+
+  if Rep.list.length > 0
+    Rep.list.each_with_index do |rep, index|
+      puts (index + 1).to_s + ". " + rep.type + ", " + rep.party + " " + rep.name
+    end
+  else
+    puts "You havent added any representatives. Let's do that now!"
+    add_rep
+    list_reps
+  end
 end
 
 main_menu
