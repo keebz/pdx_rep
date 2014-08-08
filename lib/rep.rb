@@ -1,4 +1,3 @@
-require 'pry'
 class Rep
   attr_reader:name,:party,:type
 

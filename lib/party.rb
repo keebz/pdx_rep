@@ -1,5 +1,3 @@
-require 'rep'
-
 class Party
   attr_reader:parties
 

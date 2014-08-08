@@ -1,7 +1,6 @@
 require 'rspec'
 require 'rep'
 require 'party'
-require 'pry'
 
 describe Rep do
   before(:each) do

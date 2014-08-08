@@ -1,7 +1,6 @@
 require 'rspec'
 require 'party'
 require 'rep'
-require 'pry'
 
 describe Party do
 
