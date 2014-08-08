@@ -97,11 +97,36 @@ def list_party
     add_party
     list_party
   end
-  puts "Press the number of the party to see all of the parties members:"
-  selection = gets.chomp.to_i
-  party = @all_parties.parties[selection - 1]
-  puts party
-  list_members(party)
+  puts "Press the number of the party to see all of the parties members or press 'd' to delete a listed party:"
+  selection = gets.chomp
+
+  if selection == 'd'
+    puts "Select the number of the party you would like to delete:"
+    at_location = gets.chomp.to_i
+    delete_party(at_location)
+
+  elsif selection.to_i > 0
+    selection = selection.to_i
+    party = @all_parties.parties[selection - 1]
+    puts party
+    list_members(party)
+  else
+    puts "invaild input. Back to the main menu."
+    main_menu
+  end
+end
+
+def delete_party(at_location)
+  @all_parties.parties.each_with_index do |party, index|
+    if (at_location - 1) == index
+      @all_parties.parties.delete_at(index)
+      puts party + " deleted!"
+      list_party
+    else
+      puts "selection invaild"
+      list_party
+    end
+  end
 end
 
 def list_members(party)
