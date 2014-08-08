@@ -87,7 +87,6 @@ def add_party
 end
 
 def list_party
-  # binding.pry
   if @all_parties.parties.length > 0
     puts "Here all all the current political parties in PDX: \n\n"
     @all_parties.parties.each_with_index do |party, index|
@@ -97,6 +96,22 @@ def list_party
     puts "There are no parties listed. Lets add some now! \n\n"
     add_party
     list_party
+  end
+  puts "Press the number of the party to see all of the parties members:"
+  selection = gets.chomp.to_i
+  party = @all_parties.parties[selection - 1]
+  puts party
+  list_members(party)
+end
+
+def list_members(party)
+  Rep.list.each_with_index do |rep, index|
+    if rep.party == party
+      puts (index + 1).to_s + ". " + rep.type + ". " + rep.name
+    else
+      puts "There are no active politicians in that party."
+      main_menu
+    end
   end
 end
 
