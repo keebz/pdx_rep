@@ -15,4 +15,9 @@ describe Party do
     expect(test_party.parties).to eq []
   end
 
+  it "will add a party to the array of parties" do
+    test_party = Party.new
+    test_party.add_party("republican")
+    expect(test_party.parties).to eq ["republican"]
+  end
 end
